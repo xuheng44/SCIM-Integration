@@ -42,5 +42,10 @@ ServiceNow Support below two SCIM use cases:
 Login to your Genesys CLoud Org with admin account, and create an Auth Client(https://help.mypurecloud.com/articles/create-an-oauth-client/), make sure assign the SCIM Integration Role. And Copy Client ID and Client Secret for ServiceNow SCIM Client Integration.
 <img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/fa086044-6d02-4bce-a6ab-3d4818445009">
 
+### Login ServcieNow and Create a developer instance
+
+Login to ServiceNow(https://developer.servicenow.com/dev.do#!/home), Click "Request Instance" on the top-Right Page, choose the lastest Release: Washtington DC.
+![image](https://github.com/xuheng44/SCIM-Integration/assets/89450349/48066f8d-e774-4434-b4a5-1b118c14a844)
+
 
 
