@@ -45,7 +45,43 @@ Login to your Genesys CLoud Org with admin account, and create an Auth Client(ht
 ### Login ServcieNow and Create a developer instance
 
 Login to ServiceNow(https://developer.servicenow.com/dev.do#!/home), Click "Request Instance" on the top-Right Page, choose the lastest Release: Washtington DC.
-![image](https://github.com/xuheng44/SCIM-Integration/assets/89450349/48066f8d-e774-4434-b4a5-1b118c14a844)
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/48066f8d-e774-4434-b4a5-1b118c14a844">
+After ServiceNow create an instance, then can click the button "Start Building" to login instance with admin role.
+![image](https://github.com/xuheng44/SCIM-Integration/assets/89450349/6cb7f7c1-c2dd-49e2-a2d9-5c2e0e494e22)
+
+### Install SCIM V2  - ServiceNow Cross-domain Identity Management Client
+
+Navigate to All > System Applications > All Available Applications > All.  Find the SCIM v2 - ServiceNow Cross-domain Identity Management Client (com.snc.integration.scim2.client)  plugin using the filter criteria and search bar. And install that Plugin.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/3d57929e-3353-4066-b230-2d6a5811be50">
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/8a3387dc-adb6-4e8e-ba92-c0b7045adf78">
+
+### Install oAUTH
+Search "oAUTH" in the Search Bar, Click System Oauth→ Application Registry
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/530ed6ea-eec3-42cf-93bb-00897f8b0456">
+Click "New" to create a third party oAuth Provider:
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/4146e297-5837-49d5-9c2d-24cdc5218549">
+Client ID and Client Secret: Copied from Step1: Create OAuth Client for ServiceNow SCIM Integration
+Default Grant Type: Client Credentials
+Authorization URL:  https://login.apne2.pure.cloud  (Please fill it with your org info)
+TOken URL: https://login.apne2.pure.cloud/oauth/token (Please fill it with your org info)
+You can visit https://developer.genesys.cloud/platform/api/ for the detail org info.
+
+### Configure REST Message for SCIM Client
+Go to System Web Services → Outbound → REST Message, Create new Rest Message record based on below link:
+https://docs.servicenow.com/bundle/washingtondc-platform-security/page/integrate/authentication/task/create-a-rest-message.html
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/181f16e6-2d79-427b-abb4-462634acde29">
+Endpoint: https://api.apne2.pure.coud/api/v2/scim (Please fill it with your org info)
+You can visit https://developer.genesys.cloud/platform/api/ for the detail org info.
+Authentication Type: OAuth 2.0
+OAuth profile: choose the profile configured in the previou step.
+After configuration and save, you can click "Get oAuth Token" to make sure the oAuth configuration is correct.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/4a8ad925-19b6-4b74-8af4-011ea2411baf">
+Then goto panel "HTTP Request" to configure HTTP Headers
+
+
+
+
+
 
 
 
