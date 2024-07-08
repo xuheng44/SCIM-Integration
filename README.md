@@ -20,7 +20,9 @@ ServiceNow Support below two SCIM use cases:
 ## Intergration methods
 * Method 1: Using 3rd party IDP
   Both Genesys Cloud and ServiceNow could support 3rd party IDP integration, Like Microsoft Entra ID, OTKA or OneLogin, please checkout below link for detail information:
+
   https://help.mypurecloud.com/articles/about-genesys-cloud-scim-identity-management/
+  
   https://docs.servicenow.com/bundle/washingtondc-platform-security/page/integrate/authentication/concept/explore-scim-provider.html
   We will not cover this method in this blueprint.
   
