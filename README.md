@@ -23,6 +23,7 @@ ServiceNow Support below two SCIM use cases:
   https://help.mypurecloud.com/articles/about-genesys-cloud-scim-identity-management/
   https://docs.servicenow.com/bundle/washingtondc-platform-security/page/integrate/authentication/concept/explore-scim-provider.html
   We will not cover this method in this blueprint.
+  
 * Method 2: Using ServiceNow SCIM Client
   In the blueprint, We will use ServiceNow SCIM client to privision Users/Groups in the Genesys Cloud.
 <img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/a853c8d8-a34a-4de9-a880-acf343acece7">
