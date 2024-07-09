@@ -180,10 +180,10 @@ Add Action, Select the Action "Genesys Cloud SCIM User", which just created in t
 Then save and Active this flow.
 Then you can create new user(with Department name contains "Genesys) in ServiceNow, you will find the same user will be created or updated in the Genesys Cloud at the same time.
 
-**NOT Supported Now**
-
+**Attention**
 * Not support Delete User
 * Not support deselect "Active" in user
+* Don't change the user emaill address, or it will create a new user in Genesys Cloud.
  
 #### SYNC Group and Group Members from Service Now to Genesys Cloud
 
