@@ -76,7 +76,12 @@ Authentication Type: OAuth 2.0
 OAuth profile: choose the profile configured in the previou step.
 After configuration and save, you can click "Get oAuth Token" to make sure the oAuth configuration is correct.
 <img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/4a8ad925-19b6-4b74-8af4-011ea2411baf">
-Then goto panel "HTTP Request" to configure HTTP Headers
+Then goto panel "HTTP Request" to configure HTTP Headers: Content-Type:  application/json
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/4b0d7d98-3de5-41a9-ab5e-ba5eec4eed42">
+Then Configure GET/PATCH/PUT/POST/DELETE HTTP methods for this REST Message.
+<img width="517" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/edbe6a83-c6a5-43b9-9469-5cd64f5248c9">
+<img width="517" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/d226dd21-341c-469f-ac1c-7ee1ac83d9ad">
+**Please replace the API Endpoint URL with your region domain. Also need to make sure there is no “/” between scim and ${resourceName} in the endpoint. (You can find the errors if add “/” in the Outbound HTTP Reuests Log”)**
 
 
 
