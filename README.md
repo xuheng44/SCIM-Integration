@@ -96,6 +96,61 @@ Then configure SCIM Attributes Mappings for User, need to configure one attribut
 <img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/554157d3-acc2-4473-bf26-fbe49d73fb4f">
 Please refer to link(https://help.mypurecloud.com/articles/scim-and-genesys-cloud-field-mappings/), configure more attributes like below: 
 <img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/09c7f85f-3f99-49ef-ab05-3fb6fcb75184">
+Then create new Mapping for Group:
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/ee08e1bb-98ed-4733-9d0a-4cc922a5bf89">
+Add Attribute displayName as unique attribute:
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/1876dadf-2b9f-494c-832b-5e4e0e07e0b1">
+And Another attribute memeber as follow
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/860df422-a07b-46d8-ab2d-36de189d46ef">
+When configure Members of Group, you need use below script for mapping, and update the SCIM provider in the previous step.
+```
+(function getValue(resourceGR) {
+    try {
+        //user
+        var grMem = new GlideRecord('sys_user_grmember');
+        var response = [];
+        grMem.addQuery('group', resourceGR.sys_id);
+        grMem.query();
+        while (grMem.next()) {
+            user = {};
+            var userId = grMem.user;
+            if (userId) {
+                var externalUserId = sn_auth.SCIM2ClientUtil.getProviderIdByResourceId('Genesys Cloud SCIM','User', userId);
+                gs.info("For userId :" + userId + ", external userId in provider's system is:" + externalUserId);
+                if (externalUserId) {
+                    user.value = "" + externalUserId;
+                    response.push(user);
+                }
+            }
+        }
+        //group
+        var grp = new GlideRecord('sys_user_group');
+        grp.addQuery('sys_id', resourceGR.sys_id);
+		grp.addQuery()
+        //grp.addQuery('active', true);
+        grp.query();
+		gs.info("group search start!" + resourceGR.sys_id );
+        while (grp.next()) {
+			gs.info("Loop")
+            group = {};
+            var groupId = grp.sys_id;
+			gs.info("Group name " + groupId + " !" );
+            if (groupId) {
+                var externalGroupId = sn_auth.SCIM2ClientUtil.getProviderIdByResourceId('Genesys Cloud SCIM','Group', groupId);
+                gs.info("For groupId :" + groupId + ", external groupId in provider's system is:" + externalGroupId);
+                if (externalGroupId) {
+                    group.value = "" + externalGroupId;
+                    response.push(group);
+                }
+            }
+        }
+        return JSON.stringify(response);
+    } catch (e) {
+        gs.error('Unable to get attribute value using script' + e);
+        return null;
+    }
+})(resourceGR);
+```
 
 
 
