@@ -151,7 +151,39 @@ When configure Members of Group, you need use below script for mapping, and upda
     }
 })(resourceGR);
 ```
+### Setup workflow in ServiceNow
+Flow Designer is a Now Platform® feature that enables process owners to automate work. Build multi-step flows from reusable components without having to code. Please refer to link(https://docs.servicenow.com/bundle/washingtondc-build-workflows/page/administer/flow-designer/concept/flow-designer.html) for it's detail features and functions. 
+Here we only use Trigger + Action to support below 2 use cases:
+#### SYNC user from Service Now to Genesys Cloud
+Click All -> Process Automation -> Flow Designer, ServiceNow will open a new tab for flow desiner.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/957def3d-87a1-444b-8c87-8fcabd0c0d27">
+Clicke New -> Action in the workflow Studio.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/2399015e-356b-4b51-8805-355371299e9f">
+Create Input Variable: userid
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/89a843b8-ecc2-45a0-a354-6de4966765fb">
+Add a scrip step
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/1250040b-4002-4dc7-bde4-c149184aa9ac">
+Input below code to script, and add Input Varialbes as below screen
+```
+var scimClient = new sn_auth.SCIM2Client(); 
+var response = scimClient.provision('Genesys Cloud SCIM','User',inputs.UserID); 
+gs.info('response: ' + response);
+```
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/da5c9633-f0dc-4af1-90d0-148dbd6bd856">
+After configuration, please save and publish.
+Then click New -> Flow.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/8dd5a91d-10bf-48f5-a3a6-a6a612956299">
+Add a trigger, Trigger: Select Record -> Created or Updated, Table: Select User[sys_user], Run Trigger: Select For Every update. Add Filter: Select Department.Name Contains 'Genesys". (this filter can be changed by user case, here only sync users with Department name contains "Genesys").
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/8a2ba607-e62d-4be6-abf4-9ee4c2ddb488">
+Add Action, Select the Action "Genesys Cloud SCIM User", which just created in the previous step, and select userid as below screen.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/28216337-bd55-48b9-8455-5455960cd146">
+Then save and Active this flow.
+Then you can create new user(with Department name contains "Genesys) in ServiceNow, you will find the same user will be created or updated in the Genesys Cloud at the same time.
+**NOT Supported Now**
+* Not support Delete User
+* Not support deselect "Active" in user
 
+#### SYNC Group and Group Members from Service Now to Genesys Cloud
 
 
 
