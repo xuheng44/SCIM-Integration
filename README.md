@@ -87,6 +87,18 @@ Then Configure GET/PATCH/PUT/POST/DELETE HTTP methods for this REST Message.
 ### Create SCIM Provder
 Goto SCIM Client → SCIM Provider to create a new provider to connect Genesys Cloud SCIM.
 <img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/a5df4327-79c5-4405-b8aa-82c33775d7b4">
+After create SCIM Provider, please goto REST Message step, remove the "/" in the GET http method.
+
+### Create SCIM Provider Resource Mapping
+Goto SCIM Client -> SCIM Provider Resource Mapping, Create a new Mapping, Choose "User" for Resource name and "User[sys_user] for Primary Table.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/2b7b73fa-b44e-4cc0-aa73-b6ff3d096198">
+Then configure SCIM Attributes Mappings for User, need to configure one attribute as unique: use userName as unique mapping as below:
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/554157d3-acc2-4473-bf26-fbe49d73fb4f">
+Please refer to link(https://help.mypurecloud.com/articles/scim-and-genesys-cloud-field-mappings/), configure more attributes like below: 
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/09c7f85f-3f99-49ef-ab05-3fb6fcb75184">
+
+
+
 
 
 
