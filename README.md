@@ -188,13 +188,49 @@ Then you can create new user(with Department name contains "Genesys) in ServiceN
  
 #### SYNC Group and Group Members from Service Now to Genesys Cloud
 
+Same as syncing users step, click New Action first:
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/b8e95636-0183-468a-9319-3bcaf952fe45">
+Create Input variable "groupid", set it as mandatory.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/5f547cc3-d6ea-4243-8109-f3db8db26ea7">
+Add Script step like previous step in syncing user.
+<img width="1272" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/79598a08-7cb0-4650-8a76-233c58d16666">
+Insert below codes to Script block:
+```
+var scimClient = new sn_auth.SCIM2Client(); 
+var response = scimClient.provision('Genesys Cloud SCIM','Group',inputs.groupID); 
+gs.info('response: ' + response);
+```
+Also add Input Variable "groupID" as below screen:
+<img width="1259" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/375ada02-7df6-4e5a-b77d-dfc25aa16f49">
+Then save and publish it.
+Close Action, and Click New flow:
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/1891c266-07ea-4745-8c8e-ed53bd8d97df">
+Add a trigger, Trigger: Select Record -> Created or Updated, Table: Select Group Memebers[sys_user_grmember], Run Trigger: Select For Every update.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/68e1814b-d8e5-45b5-bece-7cf5fb98b4e0">
+Add Action, Select the Action "Genesys Cloud SCIM Group", which just created in the previous step, and select groupid(Triger - Record.. -> Group MemberRe.. -> Group -> Sys ID) as below screen.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/0cafeae3-00cd-4532-881f-bc9fb31cd4f0">
+Then Save and Activate this flow.
 
+Then you can make tests with Group sync between ServiceNow and Genesys Cloud.
 
+**ATTENTION**
 
+* Due to GC SCIM API not support POST for Group, you should create Group in the Genesys Cloud first and Group name must exact same in the SNOW and GC.
+* Due to SNOW don't support DELETE on Record for Trigger, SNOW will not SYNC group to GC when remove group member, but will sync when add any new group memeber.
 
+## Trouble shooting
 
+Due to multi step configurations needed for SCIM SYNCING on ServiceNow, it is not easy to make sure every step is correct. So you need to learn the basic troubleshoot methods for ServiceNow, especially on Log analysis.
 
-
+* System log
+In left admin menu, goto system logs -> System log -> All, you can find all system log(You can print your debug info in script).
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/9923cdd1-6126-4820-afde-e31bcf384737">
+* SCIM Log
+In left admin menu, goto SCIM Client -> SCIM Client Logs, you can find SCIM related log.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/f973d7d3-f987-4e2f-a69e-607478120ba2"> 
+* Outbound HTTP Requess log
+In left admin menu, goto system logs -> Oubound HTTP Requests, you can find all the SCIM requests sent to Genesys Cloud SCIM endpoint.
+<img width="1177" alt="image" src="https://github.com/xuheng44/SCIM-Integration/assets/89450349/af92b569-0012-497a-a0dd-e4354c557e94">
 
 
 
